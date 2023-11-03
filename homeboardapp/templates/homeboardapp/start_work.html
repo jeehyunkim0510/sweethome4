@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        #main_family_picture {
+            background-image: url('media/bg-masthead.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 배경을 수직 가운데로 정렬 */
+            align-items: center; /* 배경을 수평 가운데로 정렬 */
+            color: white;
+        }
+
+        .btn-login {
+            font-size: 24px;
+            padding: 10px 30px;
+            color: #808080; /* 파란색 */
+            border: 1px solid #808080; /* 파란색 */
+            background-color: transparent; /* 배경색 없음 */
+            margin-bottom: 40px; /* 조정 가능 */
+            margin-right: 10px; /* 회원가입과 간격 조정 */
+        }
+    </style>
+
+    <div id="main_family_picture">
+        <div style="display: flex;">
+                <a href="{% url 'accountapp:login' %}">
+                    <button type="button" class="btn btn-login">로그인</button>
+                </a>
+                <a href="{% url 'accountapp:create' %}">
+                    <button type="button" class="btn btn-login">회원가입</button>
+                </a>
+        </div>
+    </div>
+{% endblock %}
