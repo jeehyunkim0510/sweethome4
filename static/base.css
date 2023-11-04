@@ -1,0 +1,27 @@
+/* CSS 코드 */
+.article-preview {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.preview-image {
+    width: 100px; /* 이미지 너비 조정 */
+    height: 100px; /* 이미지 높이 조정 */
+    margin-right: 20px;
+    object-fit: cover; /* 이미지 자르기 옵션 */
+}
+
+.preview-content {
+    flex: 1; /* 텍스트 내용이 남는 공간을 모두 차지 */
+}
+
+.preview-content h2 {
+    margin: 0 0 10px; /* 제목에 대한 마진 설정 */
+}
+
+.preview-content p {
+    margin: 0; /* 요약 내용에 대한 마진 설정 */
+}

@@ -2,34 +2,59 @@
 {% load static %}
 
 {% block content %}
- {% if articles %}
+    <style>
+        .custom-card {
+            display: flex;
+            width: 40ex;
+            height: 20ex;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ccc;
+        }
+
+        .custom-card img {
+            width: 50%; /* Image occupies 50% of the card width */
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .custom-card .card-body {
+            width: 50%; /* Initial text width for larger screens */
+            padding: 0.5em;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .custom-card {
+                width: 100%; /* Full width for mobile screens */
+                height: 10ex; /* Reduced height for mobile screens */
+            }
+            .custom-card img {
+                width: 100%; /* Image takes full width on smaller screens */
+            }
+            .custom-card .card-body {
+                width: 70%; /* Adjusted text width for smaller screens */
+            }
+        }
+    </style>
+
+    {% if articles %}
     <main>
-        {% for article in articles %}
-        <div class="container  justify-content-center align-content-around row-gap-3 column-gap-3  ">
-            <div class="row align-items-center h-25 shadow-lg p-4">
-                <div class="col-12 col-lg-4 overflow-auto">
-                    <div class="container justify-content-center">
-                        <div class="row align-items-center " style="float: none; margin: auto;">
-                            <div class="col-6">
-                                <img src="{{ article.image.url }}" class="img-fluid" alt="Article Image" style="width: 200px; height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="col-6" style="height: 100px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end;">
-                                <div style="color: black; text-decoration: none; margin: 8px 0;">
-                                    <h4 style="margin: 0;">{{ article.created_at }}</h4>
-                                </div>
-                                <div style="color: black; text-decoration: none; margin: 8px 0;">
-                                    <a href="{% url 'articleapp:detail' pk=article.pk %}" style="text-decoration: none; color: black;">자세히보기</a>
-                                </div>
-                            </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto" style="width: fit-content;">
+                    {% for article in articles %}
+                    <div class="card custom-card">
+                        <img src="{{ article.image.url }}" class="card-img-top" alt="Article Image" />
+                        <div class="card-body">
+                            <p class="card-text">{{ article.content }}</p>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-               <div class="col-12 col-lg-8 lh-lg overflow-hidden align-center ">
-                  <p>{{ article.content|slice:":200" }}</p>
-               </div>
             </div>
         </div>
-        {% endfor %}
     </main>
 
         <div class="pagination" style="display: flex; justify-content: center; margin-top: 20px; font-size: 1.2em;">

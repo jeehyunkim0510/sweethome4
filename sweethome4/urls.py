@@ -27,5 +27,6 @@ urlpatterns = [
     path('homeboard/', include('homeboardapp.urls')),
     path('account/', include('accountapp.urls')),
     path('article/', include('articleapp.urls')),
+    path('familyjoin/', include('familyjoinapp.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
