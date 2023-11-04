@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import PageNotAnInteger, Paginator, EmptyPage
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -16,21 +17,21 @@ has_ownership=[
 ]
 # Create your views here.
 
-class ArticleCreateView(CreateView):
+class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = NewArticle
     form_class = NewArticleCreationForm
     template_name = 'articleapp/create.html'
     success_url = reverse_lazy('homeboardapp:homeboard')
 
 
-class ArticleDetailView(DetailView, FormMixin):
+class ArticleDetailView(LoginRequiredMixin, DetailView, FormMixin):
     model = NewArticle
     form_class = NewArticleCreationForm
     context_object_name = 'target_article'
     template_name = 'articleapp/detail.html'
 
 
-class ArticleUpdateView(UpdateView):
+class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     model = NewArticle
     form_class = NewArticleCreationForm
     context_object_name = 'target_article'
@@ -38,7 +39,7 @@ class ArticleUpdateView(UpdateView):
 
 
 
-class ArticleListView(ListView):
+class ArticleListView(LoginRequiredMixin, ListView):
     model = NewArticle
     context_object_name = 'article_list'
     template_name = 'articleapp/list.html'
@@ -49,7 +50,7 @@ class ArticleListView(ListView):
         return article_list
 
 
-class ArticleDeleteView(DeleteView):
+class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     model = NewArticle
     context_object_name = 'target_article'
     template_name = 'articleapp/delete.html'
