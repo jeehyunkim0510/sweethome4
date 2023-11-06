@@ -13,7 +13,7 @@ class Article(models.Model):
     created_at = models.DateField(auto_now_add=True, null=True)
 
 class NewArticle(models.Model):
-    writer = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='article', null=True)
+    writer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='article_written')
     # family = models.ForeignKey(Family, on_delete=models.SET_NULL, related_name='articles', null=True)
     image = models.ImageField(upload_to='article/', null=False)
     content = models.TextField(max_length=500, null=True)

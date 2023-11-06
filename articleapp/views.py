@@ -23,6 +23,12 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
     template_name = 'articleapp/create.html'
     success_url = reverse_lazy('homeboardapp:homeboard')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user  # 로그인한 사용자 정보
+        return kwargs
+
+
 
 class ArticleDetailView(LoginRequiredMixin, DetailView, FormMixin):
     model = NewArticle
@@ -30,12 +36,22 @@ class ArticleDetailView(LoginRequiredMixin, DetailView, FormMixin):
     context_object_name = 'target_article'
     template_name = 'articleapp/detail.html'
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user  # 로그인한 사용자 정보
+        return kwargs
+
 
 class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     model = NewArticle
     form_class = NewArticleCreationForm
     context_object_name = 'target_article'
     template_name = 'articleapp/update.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user  # 로그인한 사용자 정보
+        return kwargs
 
 
 
@@ -46,8 +62,10 @@ class ArticleListView(LoginRequiredMixin, ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        article_list = NewArticle.objects.all().order_by('-created_at')
+        user = self.request.user
+        article_list = NewArticle.objects.filter(writer=user).order_by('-created_at')
         return article_list
+
 
 
 class ArticleDeleteView(LoginRequiredMixin, DeleteView):
@@ -55,3 +73,7 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'target_article'
     template_name = 'articleapp/delete.html'
     success_url = reverse_lazy('articleapp:list')
+
+    def get_object(self, queryset=None):
+        obj = super().get_object()
+        return obj
