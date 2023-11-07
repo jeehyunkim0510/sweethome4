@@ -35,6 +35,7 @@ class ArticleDetailView(LoginRequiredMixin, DetailView, FormMixin):
     form_class = NewArticleCreationForm
     context_object_name = 'target_article'
     template_name = 'articleapp/detail.html'
+    success_url = reverse_lazy('homeboardapp:homeboard')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -47,7 +48,7 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     form_class = NewArticleCreationForm
     context_object_name = 'target_article'
     template_name = 'articleapp/update.html'
-
+    success_url = reverse_lazy('homeboardapp:homeboard')
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user  # 로그인한 사용자 정보
